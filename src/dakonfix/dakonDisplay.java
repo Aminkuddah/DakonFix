@@ -19,16 +19,83 @@ import javax.swing.Timer;
  * @author amin
  */
 public class dakonDisplay extends javax.swing.JFrame {
-    
+
     private int pemainAcak;
     private int mulaiPlayerA1, mulaiPlayerA2, mulaiPlayerA3;
 
     private int sizePlayerA1, sizePlayerA2, sizePlayerA3,
             sizePlayerB1, sizePlayerB2, sizePlayerB3;
 
-    private boolean statusPlayerA1, statusPlayerA2, statusPlayerA3,statusPlayerA4, statusPlayerA5, statusPlayerA6,
-            statusPlayerB1, statusPlayerB2, statusPlayerB3,statusPlayerB4, statusPlayerB5, statusPlayerB6,
+    private boolean statusPlayerA1, statusPlayerA2, statusPlayerA3, statusPlayerA4, statusPlayerA5, statusPlayerA6,
+            statusPlayerB1, statusPlayerB2, statusPlayerB3, statusPlayerB4, statusPlayerB5, statusPlayerB6,
             statusScorelumbungA, statusScorelumbungB;
+
+    int angka, kasus;
+    boolean playerA;
+
+    Timer time = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int temp;
+            System.out.println("case : " + kasus);
+            if (kasus == 14) {
+                kasus = 0;
+            }
+            if (kasus != 7) {
+
+                tambahDakon(kasus + 1);
+                angka--;
+            }
+
+            kasus++;
+            if (angka == 0) {
+                temp = ambilDakon(kasus);
+
+                if (temp != 1) {
+                    angka = temp;
+                } else {
+                    tembakDakon(kasus, playerA);
+                    giliranPlayerB();
+                }
+            }
+            if (angka < 1) {
+                time.stop();
+            }
+        }
+
+    });
+    Timer time2 = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int temp;
+            if (kasus == 14) {
+                kasus = 0;
+            }
+            if (kasus != 0) {
+                System.out.println("angka :" + angka);
+
+                tambahDakon(kasus + 1);
+                angka--;
+            }
+            kasus++;
+            if (angka == 0) {
+                temp = ambilDakon(kasus);
+                System.out.println("temporary : " + temp);
+                System.out.println("case : " + kasus);
+                if (temp != 1) {
+                    angka = temp;
+                } else {
+                    tembakDakon(kasus, playerA);
+                    giliranPlayerA();
+                }
+            }
+            if (angka < 1) {
+                time2.stop();
+            }
+        }
+
+    });
+
     /**
      * Creates new form dakonDisplay
      */
@@ -82,7 +149,7 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerB1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         playerB1.setForeground(new java.awt.Color(255, 255, 255));
         playerB1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerB1.setText("7");
+        playerB1.setText("6");
         playerB1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playerB1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -95,7 +162,7 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerB2.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         playerB2.setForeground(new java.awt.Color(255, 255, 255));
         playerB2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerB2.setText("7");
+        playerB2.setText("6");
         playerB2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playerB2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -108,7 +175,7 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerB3.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         playerB3.setForeground(new java.awt.Color(255, 255, 255));
         playerB3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerB3.setText("7");
+        playerB3.setText("6");
         playerB3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playerB3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -121,7 +188,7 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerB4.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         playerB4.setForeground(new java.awt.Color(255, 255, 255));
         playerB4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerB4.setText("7");
+        playerB4.setText("6");
         playerB4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playerB4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -134,7 +201,7 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerB5.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         playerB5.setForeground(new java.awt.Color(255, 255, 255));
         playerB5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerB5.setText("7");
+        playerB5.setText("6");
         playerB5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playerB5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -147,7 +214,7 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerB6.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         playerB6.setForeground(new java.awt.Color(255, 255, 255));
         playerB6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerB6.setText("7");
+        playerB6.setText("6");
         playerB6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playerB6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -160,7 +227,7 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerA1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         playerA1.setForeground(new java.awt.Color(255, 255, 255));
         playerA1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerA1.setText("7");
+        playerA1.setText("6");
         playerA1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playerA1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -173,7 +240,7 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerA2.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         playerA2.setForeground(new java.awt.Color(255, 255, 255));
         playerA2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerA2.setText("7");
+        playerA2.setText("6");
         playerA2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playerA2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -186,7 +253,7 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerA3.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         playerA3.setForeground(new java.awt.Color(255, 255, 255));
         playerA3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerA3.setText("7");
+        playerA3.setText("6");
         playerA3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playerA3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -199,7 +266,7 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerA4.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         playerA4.setForeground(new java.awt.Color(255, 255, 255));
         playerA4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerA4.setText("7");
+        playerA4.setText("6");
         playerA4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playerA4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -212,7 +279,7 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerA5.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         playerA5.setForeground(new java.awt.Color(255, 255, 255));
         playerA5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerA5.setText("7");
+        playerA5.setText("6");
         playerA5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playerA5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -225,7 +292,7 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerA6.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         playerA6.setForeground(new java.awt.Color(255, 255, 255));
         playerA6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerA6.setText("7");
+        playerA6.setText("6");
         playerA6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         playerA6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -290,17 +357,19 @@ public class dakonDisplay extends javax.swing.JFrame {
         playerB5.setEnabled(false);
         playerB6.setEnabled(false);
     }
-    
+
     private void giliranPlayerB() {
 
         if (Integer.parseInt(this.playerA1.getText()) == 0 && Integer.parseInt(this.playerA2.getText()) == 0 && Integer.parseInt(this.playerA3.getText()) == 0
                 && Integer.parseInt(this.playerA4.getText()) == 0 && Integer.parseInt(this.playerA5.getText()) == 0 && Integer.parseInt(this.playerA6.getText()) == 0
                 && Integer.parseInt(this.playerB1.getText()) == 0 && Integer.parseInt(this.playerB2.getText()) == 0 && Integer.parseInt(this.playerB3.getText()) == 0
-                && Integer.parseInt(this.playerB4.getText()) == 0 && Integer.parseInt(this.playerB5.getText()) == 0 && Integer.parseInt(this.playerB6.getText()) == 0){
+                && Integer.parseInt(this.playerB4.getText()) == 0 && Integer.parseInt(this.playerB5.getText()) == 0 && Integer.parseInt(this.playerB6.getText()) == 0) {
             if (Integer.parseInt(this.lumbungPlayerA.getText()) < Integer.parseInt(this.lumbungPlayerB.getText())) {
                 textPlayer.setText("Player B adalah pemenang!");
-            } else {
-                textPlayer.setText("Player A adalah pemenang!");
+            }else if (Integer.parseInt(this.lumbungPlayerA.getText()) == Integer.parseInt(this.lumbungPlayerB.getText())) {
+                textPlayer.setText("SERI!");
+            }else {
+                textPlayer.setText("Player A adalah PEMENANG!");
             }
             playerA1.setVisible(false);
             playerA2.setVisible(false);
@@ -314,7 +383,7 @@ public class dakonDisplay extends javax.swing.JFrame {
             playerB4.setVisible(false);
             playerB5.setVisible(false);
             playerB6.setVisible(false);
-            
+
         } else {
             playerA1.setVisible(false);
             playerA2.setVisible(false);
@@ -345,6 +414,8 @@ public class dakonDisplay extends javax.swing.JFrame {
                 && Integer.parseInt(this.playerB4.getText()) == 0 && Integer.parseInt(this.playerB5.getText()) == 0 && Integer.parseInt(this.playerB6.getText()) == 0) {
             if (Integer.parseInt(this.lumbungPlayerA.getText()) < Integer.parseInt(this.lumbungPlayerB.getText())) {
                 textPlayer.setText("Player B adalah pemenang!");
+            }else if (Integer.parseInt(this.lumbungPlayerA.getText()) == Integer.parseInt(this.lumbungPlayerB.getText())) {
+                textPlayer.setText("SERI!");
             } else {
                 textPlayer.setText("Player A adalah pemenang!");
             }
@@ -375,70 +446,19 @@ public class dakonDisplay extends javax.swing.JFrame {
             playerA5.setVisible(true);
             playerA6.setVisible(true);
             if (Integer.parseInt(this.playerA1.getText()) == 0 && Integer.parseInt(this.playerA2.getText()) == 0 && Integer.parseInt(this.playerA3.getText()) == 0
-                && Integer.parseInt(this.playerA4.getText()) == 0 && Integer.parseInt(this.playerA5.getText()) == 0 && Integer.parseInt(this.playerA6.getText()) == 0) {
+                    && Integer.parseInt(this.playerA4.getText()) == 0 && Integer.parseInt(this.playerA5.getText()) == 0 && Integer.parseInt(this.playerA6.getText()) == 0) {
                 giliranPlayerB();
             }
         }
     }
-    
-    private void run(int kasus, int angka, boolean playerA) {
-        int temp;
+
+    private void run() {
+
         if (playerA) {
+            time.start();
 
-            while (angka != 0) {
-                if (kasus == 14) {
-                    kasus = 0;
-                }
-                if (kasus != 7) {
-
-                    Timer timer = new Timer(1000, new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    tambahDakon(kasus + 1);
-                                    angka--;
-                                }
-                            });
-                }
-
-                kasus++;
-                if (angka == 0) {
-                    temp = ambilDakon(kasus);
-
-                    System.out.println("case : " + kasus);
-                    if (temp != 1) {
-                        angka = temp;
-                    } else {
-                        tembakDakon(kasus, playerA);
-                        giliranPlayerB();
-                    }
-                }
-                
-                
-            }
         } else {
-            while (angka != 0) {
-                if (kasus == 14) {
-                    kasus = 0;
-                }
-                if (kasus != 0) {
-                    System.out.println("angka :" + angka);
-
-                    tambahDakon(kasus + 1);
-                    angka--;
-                }
-                kasus++;
-                if (angka == 0) {
-                    temp = ambilDakon(kasus);
-                    System.out.println("temporary : " + temp);
-                    System.out.println("case : " + kasus);
-                    if (temp != 1) {
-                        angka = temp;
-                    } else {
-                        tembakDakon(kasus, playerA);
-                        giliranPlayerA();
-                    }
-                }
-            }
+            time2.start();
         }
     }
 
@@ -474,7 +494,7 @@ public class dakonDisplay extends javax.swing.JFrame {
                     this.playerB5.setText("0");
                 } else {
                 }
-                break;    
+                break;
             case 12:
                 if (playerA) {
                     angka = Integer.parseInt(this.playerB4.getText());
@@ -508,7 +528,7 @@ public class dakonDisplay extends javax.swing.JFrame {
                 }
                 break;
             case 8:
-                break;    
+                break;
             case 1:
                 break;
             case 2:
@@ -558,7 +578,7 @@ public class dakonDisplay extends javax.swing.JFrame {
                     this.playerA6.setText("0");
                 } else {
                 }
-                break;               
+                break;
         }
     }
 
@@ -642,7 +662,7 @@ public class dakonDisplay extends javax.swing.JFrame {
                 } else {
                     playerA4.setText("0");
                 }
-                break;    
+                break;
             case 12:
                 angka = Integer.parseInt(this.playerA3.getText());
                 if (angka == 1) {
@@ -650,7 +670,7 @@ public class dakonDisplay extends javax.swing.JFrame {
                 } else {
                     playerA3.setText("0");
                 }
-                break;    
+                break;
             case 13:
                 angka = Integer.parseInt(this.playerA2.getText());
                 if (angka == 1) {
@@ -666,7 +686,7 @@ public class dakonDisplay extends javax.swing.JFrame {
                 } else {
                     playerA1.setText("0");
                 }
-                break;    
+                break;
         }
         return angka;
     }
@@ -687,16 +707,12 @@ public class dakonDisplay extends javax.swing.JFrame {
         isiA3 = Integer.parseInt(playerA3.getText());
         isiA2 = Integer.parseInt(playerA2.getText());
         isiA1 = Integer.parseInt(playerA1.getText());
-
-//        Timer time = new Timer(00, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {
         switch (next) {
             case 1:
                 lumbungPlayerA.setText(Integer.toString(lumbungA + 1));
 
                 if (Integer.parseInt(playerA1.getText()) == 0 && Integer.parseInt(playerA2.getText()) == 0 && Integer.parseInt(playerA3.getText()) == 0
-                       && Integer.parseInt(playerA4.getText()) == 0 && Integer.parseInt(playerA5.getText()) == 0 && Integer.parseInt(playerA6.getText()) == 0) {
+                        && Integer.parseInt(playerA4.getText()) == 0 && Integer.parseInt(playerA5.getText()) == 0 && Integer.parseInt(playerA6.getText()) == 0) {
                     giliranPlayerB();
                 }
 
@@ -718,7 +734,7 @@ public class dakonDisplay extends javax.swing.JFrame {
                 break;
             case 7:
                 playerB1.setText(Integer.toString(isiB1 + 1));
-                break;    
+                break;
             case 8:
                 lumbungPlayerB.setText(Integer.toString(lumbungB + 1));
                 if (Integer.parseInt(playerB1.getText()) == 0 && Integer.parseInt(playerB2.getText()) == 0 && Integer.parseInt(playerB3.getText()) == 0
@@ -736,7 +752,7 @@ public class dakonDisplay extends javax.swing.JFrame {
             case 11:
                 playerA4.setText(Integer.toString(isiA4 + 1));
                 break;
-           case 12:
+            case 12:
                 playerA3.setText(Integer.toString(isiA3 + 1));
                 break;
             case 13:
@@ -744,133 +760,120 @@ public class dakonDisplay extends javax.swing.JFrame {
                 break;
             case 14:
                 playerA1.setText(Integer.toString(isiA1 + 1));
-                break;     
+                break;
 
-        }
-//            }
-//        });
-//        time.start();
-//        time.stop();
+        }   
 
     }
-    
+
     private void playerA1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerA1MouseClicked
-        int angka, kasus;
-        boolean playerA = true;
+
+        playerA = true;
         angka = Integer.parseInt(this.playerA1.getText());
         playerA1.setText("0");
         kasus = 14;
-        run(kasus, angka, playerA);
+        run();
     }//GEN-LAST:event_playerA1MouseClicked
 
     private void playerA2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerA2MouseClicked
         // TODO add your handling code here:
-        int angka, kasus;
-        boolean playerA = true;
+
+        playerA = true;
         angka = Integer.parseInt(this.playerA2.getText());
         playerA2.setText("0");
         kasus = 13;
-        run(kasus, angka, playerA);
+        run();
     }//GEN-LAST:event_playerA2MouseClicked
 
     private void playerA3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerA3MouseClicked
         // TODO add your handling code here:
-        int angka, kasus, temp;
-        boolean playerA = true;
+        playerA = true;
         angka = Integer.parseInt(this.playerA3.getText());
         playerA3.setText("0");
         kasus = 12;
-        run(kasus, angka, playerA);
+        run();
     }//GEN-LAST:event_playerA3MouseClicked
 
     private void playerA4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerA4MouseClicked
         // TODO add your handling code here:
-        int angka, kasus, temp;
-        boolean playerA = true;
+        playerA = true;
         angka = Integer.parseInt(this.playerA4.getText());
         playerA4.setText("0");
         kasus = 11;
-        run(kasus, angka, playerA);
+        run();
     }//GEN-LAST:event_playerA4MouseClicked
 
     private void playerA5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerA5MouseClicked
         // TODO add your handling code here:
-        int angka, kasus, temp;
-        boolean playerA = true;
+        playerA = true;
         angka = Integer.parseInt(this.playerA5.getText());
         playerA5.setText("0");
         kasus = 10;
-        run(kasus, angka, playerA);
+        run();
     }//GEN-LAST:event_playerA5MouseClicked
 
     private void playerA6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerA6MouseClicked
         // TODO add your handling code here:
-        int angka, kasus, temp;
-        boolean playerA = true;
+        playerA = true;
         angka = Integer.parseInt(this.playerA6.getText());
         playerA6.setText("0");
         kasus = 9;
-        run(kasus, angka, playerA);
+        run();
     }//GEN-LAST:event_playerA6MouseClicked
 
     private void playerB6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerB6MouseClicked
         // TODO add your handling code here:
-        int angka, kasus;
-        boolean playerA = false;
+        playerA = false;
         angka = Integer.parseInt(this.playerB6.getText());
         playerB6.setText("0");
         kasus = 2;
-        run(kasus, angka, playerA);
+        run();
     }//GEN-LAST:event_playerB6MouseClicked
 
     private void playerB5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerB5MouseClicked
         // TODO add your handling code here:
-        int angka, kasus;
-        boolean playerA = false;
+
+        playerA = false;
         angka = Integer.parseInt(this.playerB5.getText());
         playerB5.setText("0");
         kasus = 3;
-        run(kasus, angka, playerA);
+        run();
     }//GEN-LAST:event_playerB5MouseClicked
 
     private void playerB4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerB4MouseClicked
         // TODO add your handling code here:
-        int angka, kasus;
-        boolean playerA = false;
+        playerA = false;
         angka = Integer.parseInt(this.playerB4.getText());
         playerB4.setText("0");
         kasus = 4;
-        run(kasus, angka, playerA);
+        run();
     }//GEN-LAST:event_playerB4MouseClicked
 
     private void playerB3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerB3MouseClicked
         // TODO add your handling code here:
-        int angka, kasus, temp;
-        boolean playerA = false;
+        playerA = false;
         angka = Integer.parseInt(this.playerB3.getText());
         playerB3.setText("0");
         kasus = 5;
-        run(kasus, angka, playerA);
+        run();
     }//GEN-LAST:event_playerB3MouseClicked
 
     private void playerB2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerB2MouseClicked
         // TODO add your handling code here:
-        int angka, kasus;
-        boolean playerA = false;
+        playerA = false;
         angka = Integer.parseInt(this.playerB2.getText());
         playerB2.setText("0");
         kasus = 6;
-        run(kasus, angka, playerA);
+        run();
     }//GEN-LAST:event_playerB2MouseClicked
 
     private void playerB1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerB1MouseClicked
         // TODO add your handling code here:
-        int angka, kasus;
-        boolean playerA = false;
+        playerA = false;
         angka = Integer.parseInt(this.playerB1.getText());
         playerB1.setText("0");
         kasus = 7;
-        run(kasus, angka, playerA);
+        run();
     }//GEN-LAST:event_playerB1MouseClicked
 
     /**
